@@ -1,3 +1,4 @@
+<?php require_once('connect.php'); ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,23 +20,21 @@
     </header>
     <div class="navbar">
         <?php      
-            if ($_POST['usergroup'] == "Hotel Owner") {
-                header("location: owner_profile.php");
-                die();
-            }
+            // if ($_POST['usergroup'] == "Hotel Owner") {
+            //     header("location: owner_profile.php");
+            //     die();
+            // }
+            if(isset($_POST['submit']));
             $firstname = $_POST['firstname'];
             $lastname = $_POST['lastname'];
             $dob = $_POST['DOB'];
             $phone_no = $_POST['phonenum'];
             $email = $_POST['email'];
             $citizen_id = $_POST['citizenID'];
+            $username = $_POST['username'];
             $password = $_POST['passwd'];
             $usergroup = $_POST['usergroup'];
-
-            //for test case that a user named Bob login in
-            if (($firstname == 'Bob') && ($password == '1234')){
-                $_SESSION["firstname"] = $firstname;
-            }
+            $gender = $_POST['gender'];
 
             if ($_POST['usergroup'] == "Customer") {
                 echo("<a href='../php/customer_home.php'>&ensp;Home&ensp;</a>");
@@ -59,13 +58,48 @@
             <div class="center">
                 <h4>
                     <?php 
-                        echo "Name:",$_POST["firstname"], " ",$_POST["lastname"],"<br>";
+                    
+                    if ($usergroup == "Customer") {
+                            $q="INSERT INTO customer (ID, CitizenID, Username, Firstname, Lastname, Password,
+                            Disable, Email, phonenumber, DOB, gender_type) 
+                            VALUES (null,'$citizen_id','$username','$firstname','$lastname','$password', null,'$email','$phone_no','$dob','$gender')";
+                            $result=$mysqli->query($q);
+                            if(!$result){
+                                echo "INSERT failed. Error: ".$mysqli->error ;
+                                return false;
+                            }
+                                
+                            }
+                        else if ($usergroup == "Hotel Owner") {
+                             $q="INSERT INTO `owner` (`ID`, `CitizenID`, `Username`, `Email`, `Firstname`, `Lastname`,
+                             `Password`, `Ownertype`, `Disable`,DOB, gender_type)  
+                             VALUES (NULL, '$citizen_id', '$username', '$email', '$firstname', '$lastname', '$password', NULL, NULL, '$dob', '$gender')";
+                             $result=$mysqli->query($q);
+                            if(!$result){
+                                echo "INSERT failed. Error: ".$mysqli->error ;
+                                return false;
+                            }
+                                
+                            }
+                            else {
+                                echo "INSERT failed. Error: ".$mysqli->error ;
+                                return false;
+                            }
+                           
+                    $q= "select * from customer, owner ";
+					$result=$mysqli->query($q);
+					if(!$result){
+						echo "Select failed. Error: ".$mysqli->error ;
+						return false;
+					}
+                    $row=$result->fetch_array();
+                        echo "Name:",$row['Firstname'], " ",$row['Lastname'],"<br>";
                         //--add "User Group: usergroup"-- 
                         // echo "User Group:", " " ,$_POST["usergroup"],"<br>";
                         //-- add "Email address: Email"-- 
-                        echo "Email address:", " " ,$_POST["email"],"<br>";
+                        echo "Email address:", " " ,$row['Email'],"<br>";
                         //-- Find the gender and output "Gender: gender"-- 
-                        echo "Gender:", " ", $_POST["gender"],"<br>";
+                        echo "Gender:", " ", $row['gender_type'],"<br>";
                         echo "User group :", " ", $_POST['usergroup'], "<br>";
                         
                         
@@ -78,22 +112,23 @@
                         //-- print the login type as " Login time (local): time on date"-- 
                         echo "Account was created on (local):"," ",date("h:i:sa")," on ",date("Y/m/d"), "<br><br>";
                         if ($_POST['usergroup'] == "Customer") {
-                            echo("<button onclick=\"location.href='customer_home.php'\" class=submit>&ensp;Home&ensp;</button>");
-                            echo("<button onclick=\"location.href='../index.html'\" class=submit>&ensp;Log out&ensp;</button>");
+                            echo("<button onclick=\"location.href='customer_home.php'\" id=submit>&ensp;Home&ensp;</button>");
+                            echo("<button onclick=\"location.href='../index.html'\" id=submit>&ensp;Log out&ensp;</button>");
                         }
                         else if ($_POST['usergroup'] == "Hotel Owner") {
-                            echo("<button onclick=\"location.href='hotel_register.php'\" class=submit>&ensp;Add hotel&ensp;</button>");
-                            echo("<button onclick=\"location.href='../index.html'\" class=submit>&ensp;Log out&ensp;</button>");
+                            echo("<button onclick=\"location.href='hotel_register.php'\" id=submit>&ensp;Add hotel&ensp;</button>");
+                            echo("<button onclick=\"location.href='../index.html'\" id=submit>&ensp;Log out&ensp;</button>");
                         }
                         else {
-                            echo("<button onclick=\"location.href='../index.html'\" class=submit>&ensp;Home&ensp;</button>");
+                            echo("<button onclick=\"location.href='../index.html'\" id=submit>&ensp;Home&ensp;</button>");
                         }
+                    
                     ?>
                 </h4> 
             </div>
 	    </div>
-        <div id="footer">
+        <!-- <div id="footer">
             CSS326 Section 1 Group 6
-        </div>  
+        </div>   -->
     </body>
 </html>
