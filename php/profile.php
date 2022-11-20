@@ -20,23 +20,44 @@
     </header>
     <div class="navbar">
         <?php    
-           if(isset($_POST['submit']));
-            $username = $_POST['username'];
-            $password = $_POST['passwd'];
-            $usergroup = $_POST['usergroup'];
-            $q= "select * from customer, owner where customer.username='$username' or owner.username='$username'";
-                   $result=$mysqli->query($q);
-                   if(!$result){
-                       echo "Select failed. Error: ".$mysqli->error ;
-                       return false;
-                   }
+            session_start();
+            if ($_POST['username'] == "ADMIN" && $_POST['passwd'] == "0123") {
+                header("location: admin_profile.php");
+                die();
+            }
+
+            if (isset($_POST["username"])) {
+                $username = $_POST["username"];
+                $_SESSION["username"] = $username;
+            }
+            else {
+                $username = $_SESSION["username"];
+            }
+            if (isset($_POST["usergroup"])) {
+                $usergroup = $_POST["usergroup"];
+                $_SESSION["usergroup"] = $usergroup;
+                if ($usergroup == "Hotel Owner") {
+                    header("location: owner_profile.php?username='$username'");
+                    die();
+                }
+            }
+            else {
+                $usergroup = $_SESSION["usergroup"];
+            }
+            $q= "select * from customer where Username='$username'";
+            $result=$mysqli->query($q);
+            if(!$result){
+                echo "Select failed. Error: ".$mysqli->error ;
+                return false;
+            }   
+            $row=$result->fetch_array();
         ?>
+        <a href='../php/customer_home.php'>&ensp;Home&ensp;</a>
     </div>
 	<body class="shortpage">
 		<div id="content" class="form">
             <h1 style="font-size: 150%; margin-left:20px;"><b> Welcome to Anya Booking System</b> <br></h1>
-            <h3 class="center"> Welcome <?php 
-            $result=$mysqli->query($q);$row=$result->fetch_array(); echo $row['Firstname'], " ",$row['Lastname'], "!!!" ; ?><br> </h3>
+            <h3 class="center"> Welcome <?php  echo $row['Firstname'], " ",$row['Lastname'], "!!!" ; ?><br> </h3>
             <br></br>
             <div class="center">
                 <img src="https://i.pinimg.com/736x/28/20/76/282076c6e9ff50f33c609c0f9a61da8a.jpg" height=240>
@@ -44,8 +65,7 @@
             <div class="center">
                 <h4>
                     <?php 
-                    $result=$mysqli->query($q); 
-                    $row=$result->fetch_array();
+                    
                        $dob=$row['DOB'];
                        echo "Name:",$row['Firstname'], " ",$row['Lastname'],"<br>";
                        //--add "User Group: usergroup"-- 
@@ -60,21 +80,18 @@
                        
                        //-- Find the age and output as "Age in years: age"--
                        $byear = date('Y', strtotime($dob));
-                       echo "Age in years:", " " ,date("Y") - $byear,"<br>";
-                       //-- set default time zone--
-                       date_default_timezone_set("Asia/Bangkok");
-                       //-- print the login type as " Login time (local): time on date"-- 
-                       echo "Account was created on (local):"," ",date("h:i:sa")," on ",date("Y/m/d"), "<br><br>";
+                       echo "Age in years:", " " ,date("Y") - $byear,"<br><br><br>";
+                    
                         if ($usergroup == "Customer") {
-                            echo("<button onclick=\"location.href='customer_home.php'\" id=submit>&ensp;Home&ensp;</button>");
-                            echo("<button onclick=\"location.href='../index.html'\" id=submit>&ensp;Log out&ensp;</button>");
+                            echo("<button onclick=\"location.href='customer_home.php'\" class=submit>&ensp;Home&ensp;</button>");
+                            echo("<button onclick=\"location.href='../index.html'\" class=submit>&ensp;Log out&ensp;</button>");
                         }
                         else if ($usergroup == "Hotel Owner") {
-                            echo("<button onclick=\"location.href='hotel_register.php'\" id=submit>&ensp;Add hotel&ensp;</button>");
-                            echo("<button onclick=\"location.href='../index.html'\" id=submit>&ensp;Log out&ensp;</button>");
+                            echo("<button onclick=\"location.href='hotel_register.php'\" class=submit>&ensp;Add hotel&ensp;</button>");
+                            echo("<button onclick=\"location.href='../index.html'\" class=submit>&ensp;Log out&ensp;</button>");
                         }
                         else {
-                           echo("<button onclick=\"location.href='../index.html'\" id=submit>&ensp;Home&ensp;</button>");
+                           echo("<button onclick=\"location.href='../index.html'\" class=submit>&ensp;Home&ensp;</button>");
                        }
                     ?>
                 </h4> 
