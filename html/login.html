@@ -28,6 +28,12 @@
 			<form action="../php/profile.php" method="post">
                 <div class="wrapinput">
                     
+                    <label>User group</label>
+                    <select name="usergroup">
+                        <option value="Customer">Customer</option>
+                        <option value="Hotel Owner">Hotel Owner</option>
+                    </select>
+				    <br></br>
                     <label>Username</label>
                     <input type="text" id="username" name="username">
                     <label>Password</label> 
@@ -48,12 +54,7 @@
                 </div>
                 
 				<br></br>
-                   <label>User group</label>
-                    <select name="usergroup">
-                        <option value="Customer">Customer</option>
-                        <option value="Hotel Owner">Hotel Owner</option>
-                    </select>
-				<br></br>
+                   
 				<div class="center">
 					<input type="submit" value="Log in" class="submit">			
 				    
@@ -65,5 +66,3 @@
         </div>  
     </body>
 </html>
-
-
