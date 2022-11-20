@@ -27,10 +27,31 @@
         <div id="content" class="form">
 			<!--%%%%% Main block %%%%-->
 			<!--Form -->
-			
-			<form action="customer_booking.php" method="post">
-				
-			</form>
+			<div class=wrapinput>
+                <form action="customer_chat.php" method="post">
+                    <h2>Contact Support<br></br></h2>
+                    
+                    <div class="BDnGender">
+                        <label>Topic</label>
+                        <select name="Topic">
+                                <option value="Disable">Why I got disable</option>
+                                <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <p></p>
+
+                    <label>Details</label>
+                    <textarea name="Reason" style="width:50%;height:30%;">Type your problems here</textarea>
+
+                    <br></br>
+                    
+                    
+                    <div class="center">
+                        <input type="submit" value="Create Topic" class="submit" style="width: 150px;">			
+                    </div>
+                </form>
+            </div>
 	    </div>
         <div id="footer">
             CSS326 Section 1 Group 6
