@@ -85,8 +85,6 @@
                                 echo "INSERT failed. Error: ".$mysqli->error ;
                                 return false;
                             }
-
-
                            
                     $q= "select * from customer, owner ";
 					$result=$mysqli->query($q);
