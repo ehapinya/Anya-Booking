@@ -29,7 +29,7 @@
 	<body class="shortpage">
 		<div id="content" class="form">
             <h1 style="font-size: 150%; margin-left:20px;"><b> Welcome to Anya Booking System</b> <br></h1>
-            <h3 class="center"> Welcome <?php echo $_POST["firstname"], " ",$_POST["lastname"], "!!!" ; ?><br> </h3>
+            <h3 class="center"> Welcome Admin 1 !!!<br> </h3>
             <br></br>
             <div class="center">
                 <img src="https://w0.peakpx.com/wallpaper/981/935/HD-wallpaper-anime-spy-x-family-loid-forger.jpg" height=240>
@@ -37,17 +37,15 @@
             <div class="center">
                 <h4>
                     <?php 
-                        echo "Name:",$_POST["firstname"], " ",$_POST["lastname"],"<br>";
+                        echo "Name: Admin 1 <br>";
                         //--add "User Group: usergroup"-- 
                         // echo "User Group:", " " ,$_POST["usergroup"],"<br>";
                         //-- add "Email address: Email"-- 
-                        echo "Email address:", " " ,$_POST["email"],"<br>";
-                        //-- Find the gender and output "Gender: gender"-- 
-                        echo "Gender:", " ", $_POST["gender"],"<br>";                        
+                        echo "Email address:", " admin1@anyabooking.com <br>";
+                        echo "Gender:", " Any<br>";                        
                         
                         //-- Find the age and output as "Age in years: age"--
-                        $byear = date('Y', strtotime($dob));
-                        echo "Age in years:", " " ,date("Y") - $byear,"<br><br>";
+                        echo "Age in years:", " " ,date("Y") - 2002,"<br><br>";
                         
                         echo("<button onclick=\"location.href='../index.html'\" class=submit>&ensp;Home&ensp;</button>");
                         echo("<button onclick=\"location.href='../index.html'\" class=submit>&ensp;Log out&ensp;</button>");
