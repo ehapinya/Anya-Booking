@@ -58,7 +58,7 @@
             <div class="center">
                 <h4>
                     <?php 
-
+                    
                     if ($usergroup == "Customer") {
                             $q="INSERT INTO customer (ID, CitizenID, Username, Firstname, Lastname, Password,
                             Disable, Email, phonenumber, DOB, gender_type) 
