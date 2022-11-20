@@ -27,6 +27,7 @@
 			<h2>Please log in<br></br></h2>
 			<form action="../php/profile.php" method="post">
                 <div class="wrapinput">
+                    
                     <label>Username</label>
                     <input type="text" id="username" name="username">
                     <label>Password</label> 
@@ -43,12 +44,20 @@
                             }
                         }
                     </script> 
-                </div>   
+                    
+                </div>
+                
 				<br></br>
+                   <label>User group</label>
+                    <select name="usergroup">
+                        <option value="Customer">Customer</option>
+                        <option value="Hotel Owner">Hotel Owner</option>
+                    </select>
 				<br></br>
 				<div class="center">
 					<input type="submit" value="Log in" class="submit">			
-				</div>
+				    
+                 </div>  
 			</form>
 	    </div>
         <div id="footer">

@@ -1,3 +1,4 @@
+<?php require_once('connect.php'); ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,6 +23,7 @@
            if(isset($_POST['submit']));
             $username = $_POST['username'];
             $password = $_POST['passwd'];
+            $usergroup = $_POST['usergroup'];
             $q= "select * from customer, owner where customer.username='$username' or owner.username='$username'";
                    $result=$mysqli->query($q);
                    if(!$result){
@@ -63,11 +65,11 @@
                        date_default_timezone_set("Asia/Bangkok");
                        //-- print the login type as " Login time (local): time on date"-- 
                        echo "Account was created on (local):"," ",date("h:i:sa")," on ",date("Y/m/d"), "<br><br>";
-                        if ($_POST['usergroup'] == "Customer") {
+                        if ($usergroup == "Customer") {
                             echo("<button onclick=\"location.href='customer_home.php'\" id=submit>&ensp;Home&ensp;</button>");
                             echo("<button onclick=\"location.href='../index.html'\" id=submit>&ensp;Log out&ensp;</button>");
                         }
-                        else if ($_POST['usergroup'] == "Hotel Owner") {
+                        else if ($usergroup == "Hotel Owner") {
                             echo("<button onclick=\"location.href='hotel_register.php'\" id=submit>&ensp;Add hotel&ensp;</button>");
                             echo("<button onclick=\"location.href='../index.html'\" id=submit>&ensp;Log out&ensp;</button>");
                         }
@@ -78,8 +80,8 @@
                 </h4> 
             </div>
 	    </div>
-        <div id="footer">
+        <!-- <div id="footer">
             CSS326 Section 1 Group 6
-        </div>  
+        </div>   -->
     </body>
 </html>
