@@ -1,3 +1,26 @@
+<?php 
+require_once('connect.php'); 
+session_start();
+if (isset($_GET["username"])) {
+    $username = $_GET["username"];
+    $_SESSION["username"] = $username;  
+}
+else {
+    $username = $_SESSION["username"];
+}
+$q= "select * from owner where Username=$username;";
+$result=$mysqli->query($q);
+if(!$result){
+    echo "Select failed. Error: ".$mysqli->error ;
+    return false;
+}   
+if ($result->num_rows == 0) {
+    header("location: profile_register.php");
+    die();
+}
+$row=$result->fetch_array();
+
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -25,7 +48,7 @@
 	<body class="shortpage">
 		<div id="content" class="form">
             <h1 style="font-size: 150%; margin-left:20px;"><b> Welcome to Anya Booking System</b> </h1>
-            <h3 class="center"> Welcome <?php echo $_POST["firstname"], " ",$_POST["lastname"], "!!!" ; ?></h3>
+            <h3 class="center"> Welcome <?php echo $row["Firstname"], " ",$row["Lastname"], "!!!" ; ?></h3>
             <p></p>
             <div class="center">
                 <img src="https://img-9gag-fun.9cache.com/photo/aqGYN3Y_460s.jpg" height=240>
@@ -33,26 +56,23 @@
             <div class="center">
                 <h4>
                     <?php 
-                        echo "Name:",$_POST["firstname"], " ",$_POST["lastname"],"<br>";
+                        
+                        echo "Name:",$row["Firstname"], " ",$row["Lastname"],"<br>";
                         //--add "User Group: usergroup"-- 
                         // echo "User Group:", " " ,$_POST["usergroup"],"<br>";
                         //-- add "Email address: Email"-- 
-                        echo "Email address:", " " ,$_POST["email"],"<br>";
+                        echo "Email address:", " " ,$row["Email"],"<br>";
                         //-- Find the gender and output "Gender: gender"-- 
-                        echo "Gender:", " ", $_POST["gender"],"<br>";
-                        echo "User group :", " ", $_POST['usergroup'], "<br>";
+                        echo "Gender:", " ", $row["gender_type"],"<br>";
+                        echo "User group :", " Hotel Owner", "<br>";
                         
                         
                         
                         //-- Find the age and output as "Age in years: age"--
-                        $byear = date('Y', strtotime($dob));
-                        echo "Age in years:", " " ,date("Y") - $byear,"<br>";
-                        //-- set default time zone--
-                        date_default_timezone_set("Asia/Bangkok");
-                        //-- print the login type as " Login time (local): time on date"-- 
-                        echo "Account was created on (local):"," ",date("h:i:sa")," on ",date("Y/m/d"), "<br><br>";
+                        $byear = date('Y', strtotime($row['DOB']));
+                        echo "Age in years:", " " ,date("Y") - $byear,"<br><br><br>";
 
-                        echo("<button onclick=\"location.href='hotel_register.php'\" class=submit>&ensp;Add hotel&ensp;</button>");
+                        echo("<button onclick=\"location.href='hotel_register.php'\" class=submit>&ensp;Add room&ensp;</button>");
                         echo("<button onclick=\"location.href='../index.html'\" class=submit>&ensp;Log out&ensp;</button>");
                     ?>
                 </h4> 
