@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <title>Anya Booking</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <header id="header">
+        <table>
+            <tr>
+                <th>
+                    <h1>ANYA booking</h1>
+                </th>
+                <th class="right">
+                    <a class="button" href="login.html">Log in</a>
+                    <a class="button" href="register.html">Sign up</a>
+                </th>
+            </tr>
+        </table>
+    </header>
+    <div class="navbar">
+        <a href="../index.html">&ensp;Home&ensp;</a>
+    </div>
+	<body class="shortpage">
+		<div id="content" class="form">
+			<!--%%%%% Main block %%%%-->
+			<!--Form -->
+            <br></br>
+			<h3>The  trip of your dream is just one click away !<br></br></h3>
+			<h2>Please log in<br></br></h2>
+			<form action="../php/profile.php" method="post">
+                <div class="wrapinput">
+                    <label>Username</label>
+                    <input type="text" id="username" name="username">
+                    <label>Password</label> 
+                    <input type="password" id="inputpass" name="passwd">	
+                    <label>Show Password</label>
+                    <input type="checkbox" id="showpw" onclick="showpass();"> 
+                    <script>
+                        function showpass() {
+                            var x = document.getElementById("inputpass");
+                            if (x.type == "password") {
+                                x.type = "text";
+                            } else {
+                                x.type = "password";
+                            }
+                        }
+                    </script> 
+                </div>   
+				<br></br>
+				<br></br>
+				<div class="center">
+					<input type="submit" value="Log in" class="submit">			
+				</div>
+			</form>
+	    </div>
+        <div id="footer">
+            CSS326 Section 1 Group 6
+        </div>  
+    </body>
+</html>
+
+
