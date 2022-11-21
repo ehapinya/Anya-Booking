@@ -19,7 +19,6 @@ if ($result->num_rows == 0) {
     die();
 }
 $row=$result->fetch_array();
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -58,19 +57,20 @@ $row=$result->fetch_array();
                     <?php 
                         
                         echo "Name:",$row["Firstname"], " ",$row["Lastname"],"<br>";
+                        echo 'Username : '.$row['Username'].' <br>';
                         //--add "User Group: usergroup"-- 
-                        // echo "User Group:", " " ,$_POST["usergroup"],"<br>";
+                        echo "User group :", " Hotel Owner", "<br>";
                         //-- add "Email address: Email"-- 
                         echo "Email address:", " " ,$row["Email"],"<br>";
                         //-- Find the gender and output "Gender: gender"-- 
                         echo "Gender:", " ", $row["gender_type"],"<br>";
-                        echo "User group :", " Hotel Owner", "<br>";
+                        
                         
                         
                         
                         //-- Find the age and output as "Age in years: age"--
                         $byear = date('Y', strtotime($row['DOB']));
-                        echo "Age in years:", " " ,date("Y") - $byear,"<br><br><br>";
+                        echo "Age in years:", " " ,date("Y") - $byear,"<br><br>";
 
                         echo("<button onclick=\"location.href='hotel_register.php'\" class=submit>&ensp;Add room&ensp;</button>");
                         echo("<button onclick=\"location.href='../index.html'\" class=submit>&ensp;Log out&ensp;</button>");

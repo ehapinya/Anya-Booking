@@ -1,6 +1,31 @@
+<?php require_once('connect.php'); 
+session_start();
+$username = $_SESSION['username'];
+
+if (isset($_GET['id'])) {
+    
+    $id = $_GET['id'];
+    $q = "select * from cart where ID = $id and username = '$username';";
+    $result=$mysqli->query($q);
+    $num=$result->num_rows;
+    if ($num < 1) {
+        $q = "insert into cart values ($id,'$username')";
+        $result=$mysqli->query($q);
+    }
+}
+
+$q= "select * from cart join room on cart.ID = room.ID where cart.username = '".$username."'";
+$result=$mysqli->query($q);
+$numberofroomincart = $result->num_rows;
+if(!$result){
+    echo "Select failed. Error: ".$mysqli->error ;
+    return false;
+}
+?>
 <!DOCTYPE html>
 <html>
     <head>
+        <script>document.getElementById("date").value</script>
         <script src="https://kit.fontawesome.com/f6d6d0e1e0.js" crossorigin="anonymous"></script>
     </head>
     <title>Anya Booking</title>
@@ -24,7 +49,6 @@
         <a href="customer_booking.php">&ensp;Booking&ensp;</a>
     </div>
     <?php
-        $numberofroomincart = 1;
         if ($numberofroomincart < 2) {
             echo "<body class=shortpage>";
         }
@@ -37,48 +61,55 @@
 			<!--Form -->
 			
 			<form action="confirm.php" method="post">
+                
 				<h2>Saved hotel list<br></br></h2>
 			    <div id="longcard">
                     <br><br><br><br><br><br><br>
-                    <table>
-                        <tr>
-                            <th colspan="3">
-                                <p class="title" style="margin-left: 10%;">Booking ID: xxxxx</p>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th rowspan="4">
-                                <img src="../img/kitagawa.jpg" height="300" style="margin-left: 20px;"/>
-                            </th>
-                            <th>
-                                <p class="title">Buiding Name: xxxxxxxx</p>
-                            </th>
-                            <th>
-                                <p class="title">Room Name: xxxxxxxx</p>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th>
-                                <p>Check in Date :</p>&emsp; <input type="date" name="check_in_date">
-                            </th>
-                            <th>
-                                <p>Check out Date :</p>&emsp; <input type="date" name="check_in_date">
-                            </th>
-                        </tr>
-                        <tr>
-                            <th>
-                                <p>No. of People: x</p>
-                            </th>
-                            <th>
-                                <p>Price: x</p>
-                            </th>
-                        </tr>
-                        <tr>
-                            <td colspan="2" class="center">
-                                <input type="submit"  value="Cancel Booking" class="submit" style="width:200px;">
-                            </td>
-                        </tr>
-                    </table>
+
+                    <?php 
+                    
+                    while ($row=$result->fetch_array()) {
+                        echo "<table>";
+                        echo "<tr>";
+                        echo "<th rowspan='4'>";
+                        echo "<img src='../img/kitagawa.jpg' height='300' style='margin-left: 20px;'/>";
+                        echo "</th>";
+                        echo "<th>";
+                        echo "<p class='title'>Room Name: ".$row['Name']."</p>";
+                        echo "</th>";
+                        echo "<th>";
+                        echo "<p class='title'>Room Number: ".$row['RoomNumber']."</p>";
+                        echo "</th>";
+                        echo "</tr>";
+                        echo "<tr>";
+                        echo "<th>";
+                        echo "<p>Check in Date :</p>&emsp; <input type='date' name='check_in_date".$row['ID']."' placeholder='yyyy-mm-dd'>";
+                        echo "</th>";
+                        echo "<th>";
+                        echo "<p>Check out Date :</p>&emsp; <input type='date' name='check_out_date".$row['ID']."' placeholder='yyyy-mm-dd'>";
+                        echo "</th>";
+                        echo "</tr>";
+                        echo "<tr>";
+                        echo "<th>";
+                        echo "<p>No. of People: ".$row['MaxAdult']."</p>";
+                        echo "</th>";
+                        echo "<th>";
+                        echo "<p>Price per Day: ".$row['Price']."</p>";
+                        echo "</th>";
+                        echo "</tr>";
+                        echo "<tr>";
+                        echo "<td colspan='2' class='center'>";
+                        echo "<button type='submit' class=button value=".$row['ID']."  name='submit' style='width:200px;'>Confirm Booking</button>";
+                        echo "</td>";
+                        echo "</tr>";
+                        echo "</table><br><br><br><br><br><br>";
+                        
+                        echo "<input type='hidden' name='rname' value=".$row['Name'].">";
+                        echo "<input type='hidden' name='rnum' value=".$row['RoomNumber'].">";
+                        echo "<input type='hidden' name='max' value=".$row['MaxAdult'].">";
+                        echo "<input type='hidden' name='price' value=".$row['Price'].">";
+                    }
+                    ?>        
                 </div>
 			</form>
 	    </div>

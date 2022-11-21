@@ -21,6 +21,7 @@
     <div class="navbar">
         <?php    
             session_start();
+            
             if ($_POST['username'] == "ADMIN" && $_POST['passwd'] == "0123") {
                 header("location: admin_profile.php");
                 die();
@@ -69,8 +70,9 @@
                        $dob=$row['DOB'];
                        echo "Name:",$row['Firstname'], " ",$row['Lastname'],"<br>";
                        //--add "User Group: usergroup"-- 
-                       // echo "User Group:", " " ,$_POST["usergroup"],"<br>";
+                       echo "User Group:", " " ,$usergroup,"<br>";
                        //-- add "Email address: Email"-- 
+                       echo "Username :", " ", $username, "<br>";
                        echo "Email address:", " " ,$row['Email'],"<br>";
                        //-- Find the gender and output "Gender: gender"-- 
                        echo "Gender:", " ", $row['gender_type'],"<br>";

@@ -7,7 +7,7 @@ if(!$result){
     echo "Select failed. Error: ".$mysqli->error ;
     return false;
 }  
-$numberofroomincart = $result -> num_rows;
+$number= $result -> num_rows;
 ?>
 <!DOCTYPE html>
 <html>
@@ -35,7 +35,7 @@ $numberofroomincart = $result -> num_rows;
         <a href="customer_booking.php">&ensp;Booking&ensp;</a>
     </div>
 	<?php
-        if ($numberofroomincart < 2) {
+        if ($number < 2) {
             echo "<body class=shortpage>";
         }
         else {
@@ -61,8 +61,8 @@ $numberofroomincart = $result -> num_rows;
                                 echo "<tr>";
                                 echo "<th rowspan='4'>";
                                 echo "<img src=".$row['image']." height='300' style='margin-left: 20px;'/>";
-                                echo "</th colspan='2'>";
-                                echo "<th>";
+                                echo "</th>";
+                                echo "<th colspan='2'>";
                                 echo "<p class='title'>Room Name: ".$row['Name']."</p>";
                                 echo "</th>";
                                 echo "</tr>";
@@ -79,15 +79,10 @@ $numberofroomincart = $result -> num_rows;
                                 echo "<p>No. of People: ".$row['MaxAdult']."</p>";
                                 echo "</th>";
                                 echo "<th>";
-                                echo "<p>Price: ",$row['Price']*date_diff($row['Check_inDate'],$row['Check_outDate']),"</p>";
+                                echo "<p>Price per Day: ",$row['Price'],"</p>";
                                 echo "</th>";
                                 echo "</tr>";
-                                echo "<tr>";
-                                echo "<td colspan='2' class='center'>";
-                                echo "<input type='submit'  value='Cancel Booking' class='submit' style='width:200px;'>";
-                                echo "</td>";
-                                echo "</tr>";
-                                echo "</table><br><br>";
+                                echo "</table><br><br><br><br><br><br>";
                             }
                         ?>
                 </div>

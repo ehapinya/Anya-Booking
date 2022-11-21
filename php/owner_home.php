@@ -1,3 +1,4 @@
+<?php require_once('connect.php'); ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,123 +23,68 @@
         <a href="owner_home.php">&ensp;Hotel Info&ensp;</a>
         <a href="owner_booking.php">&ensp;Booking&ensp;</a>
     </div>
-	<?php
-        $numberofroomincart = 2;
-        if ($numberofroomincart < 2) {
-            echo "<body class=shortpage>";
-        }
-        else {
-            echo "<body>";
-        }
-    ?>
+    <body>
         <div id="content" class="form">
 			<!--%%%%% Main block %%%%-->
 			<!--Form -->
-            <form action="owner_home.php" method="post">
+            <form action="delete_hotel.php" method="post">
                 <h2>ROOM LIST</h2>
                 <div id="card">
                     <br><br><br><br><br><br><br>
-                    <table>
-                        <tr>
-                            <th rowspan="6">
-                                <img src="../img/kitagawa.jpg" height="300" style="margin-left: 20px;"/>
+                        <?php
+                        session_start();
+                        $username = $_SESSION['username'];
+                
+                        $q ="select room.image,room.ID,room.Name,RoomNumber,MaxAdult,Facility,Price from room join owner on owner.ID=room.O_ID where owner.Username = $username";
+                        $result=$mysqli->query($q);
+                        if(!$result){
+                            echo "Select failed. Error: ".$mysqli->error ;
+                            return false;
+                        }
+
+                        while ($row=$result->fetch_array()) {
+                            if ($i%2 == 0) {echo "<tr>";}
+                            echo "<table><tr>
+                            <th rowspan='6'>
+                                <img src=".$row['image']." height='300' style='margin-left: 20px;'/>
                             </th>
-                            <th colspan="2">
-                                <p class="title">&emsp;Room Name: xxxxxxxx</p>
+                            <th colspan='2'>
+                                <p class='title'>&emsp;Room ID: ".$row['ID']."</p>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th colspan='2'>
+                                <p>&emsp;Room Name: ".$row['Name']."</p>
                             </th>
                         </tr>
                         <tr>
                             <th>
-                                <p>&emsp;Building Name : xxxx </p>
+                                <p>&emsp;Room Number: ".$row['RoomNumber']."</p>
                             </th>
                             <th>
-                                <p> &emsp;Room ID: xxxxxxxx</p>
+                                <p>&emsp;Max Adult: ".$row['MaxAdult']."</p>
                             </th>
                         </tr>
                         <tr>
                             <th>
-                                <p>&emsp;Max Adult : x</p>
+                                <p>&emsp;Facility: ".$row['Facility']."</p>
                             </th>
                             <th>
-                                <p>&emsp;Building ID :  </p>
+                                <p>&emsp;Price per Day: ".$row['Price']."</p>
                             </th>
                         </tr>
+
                         <tr>
-                            <th>
-                                <p>&emsp;Facility:</p>
-                            </th>
-                            <th>
-                                <p>&emsp;Price: x</p>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th>
-                                <p style="margin-left: 65%">Availability</p>
-                            </th>
-                            <th>
-                                <label class="switch">
-                                    <input type="checkbox" checked>
-                                    <span class="slider round"></span>
-                                </label>
-                            </th>
-                        </tr>
-                        <tr>
-                            <td colspan="3" class="center">
-                                <input type="submit" value="DELETE"  class="submit" style="width:100px;">
+                            <td colspan='3' class='center'>
+                                <button type='submit' class=button value=".$row['ID']."  name='delete' style='width:200px;'>DELETE</button>
                             </td>
                         </tr>
-                    </table>
-                    <br><br><br><br><br><br>
-                    <table>
-                        <tr>
-                            <th rowspan="6">
-                                <img src="../img/kitagawa.jpg" height="300" style="margin-left: 20px;"/>
-                            </th>
-                            <th colspan="2">
-                                <p class="title">&emsp;Room Name: xxxxxxxx</p>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th>
-                                <p>&emsp;Building Name : xxxx </p>
-                            </th>
-                            <th>
-                                <p> &emsp;Room ID: xxxxxxxx</p>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th>
-                                <p>&emsp;Max Adult : x</p>
-                            </th>
-                            <th>
-                                <p>&emsp;Building ID :  </p>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th>
-                                <p>&emsp;Facility:</p>
-                            </th>
-                            <th>
-                                <p>&emsp;Price: x</p>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th>
-                            <p style="margin-left: 65%">Availability</p>
-                            </th>
-                            <th>
-                                <label class="switch">
-                                    <input type="checkbox" checked>
-                                    <span class="slider round"></span>
-                                </label>
-                            </th>
-                        </tr>
-                        <tr>
-                            <td colspan="3" class="center">
-                                <input type="submit"  value="DELETE" class="submit"  style="width:100px;">
-                            </td>
-                        </tr>
-                    </table>
+                    </table><br><br><br><br><br><br>";
+                        
+                            
+                        }
+
+                        ?>
                 </div>
             </form>
 	    </div>

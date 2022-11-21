@@ -64,6 +64,8 @@
             <div class="center">
                 <h4>
                     <?php 
+                        $_SESSION["username"] = $username;
+                        $_SESSION["usergroup"] = $usergroup;
                         if ($usergroup == "Customer") {
                             $q="INSERT INTO customer (ID, CitizenID, Username, Firstname, Lastname, Password,
                                 Disable, Email, phonenumber, DOB, gender_type) 
@@ -73,6 +75,8 @@
                                 echo "Can not create an account.";
                             }
                             else {
+                                
+                        
                                 echo "Name:",$firstname, " ",$lastname,"<br>";
                                 echo "Username :", " ", $username, "<br>";
                                 echo "Email address:", " " ,$email,"<br>";
@@ -89,7 +93,9 @@
                                 echo "Account was created on (local):"," ",date("h:i:sa")," on ",date("Y/m/d"), "<br><br>";
                                 echo("<button onclick=\"location.href='customer_home.php'\" class=submit>&ensp;Home&ensp;</button>");
                                 echo("<button onclick=\"location.href='../index.html'\" class=submit>&ensp;Log out&ensp;</button>");
+                                
                             }
+                            
                         }
                         else if ($usergroup == "Hotel Owner") {
                 
@@ -101,6 +107,7 @@
                                 echo "Can not create an account.";
                             } 
                             else {
+                        
                                 echo "Name:",$firstname, " ",$lastname,"<br>";
                                 echo "Username :", " ", $username, "<br>";
                                 echo "Email address:", " " ,$email,"<br>";
@@ -117,14 +124,14 @@
                                 echo "Account was created on (local):"," ",date("h:i:sa")," on ",date("Y/m/d"), "<br><br>";
                                 echo("<button onclick=\"location.href='hotel_register.php'\" class=submit>&ensp;Add hotel&ensp;</button>");
                                 echo("<button onclick=\"location.href='../index.html'\" class=submit>&ensp;Log out&ensp;</button>");
+                                
                             } 
                         }
                         else {
                             echo "Please Login or Register<br><br>";
                             echo("<button onclick=\"location.href='../index.html'\" class=submit>&ensp;Home&ensp;</button>");
                         }
-                        $_SESSION["username"] = $username;
-                        $_SESSION["usergroup"] = $usergroup
+                        
                     ?>
                 </h4> 
             </div>
