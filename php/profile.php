@@ -13,8 +13,9 @@
                     <h1>ANYA booking</h1>
                 </th>
                 <th class="right">
-                    <button onclick="location.href='profile.php'" id="icon"><i class="fa-solid fa-circle-user" style="font-size: 38px; color: #291f1d;"></i></button>
-                </th>
+                    <button onclick="location.href='customer_chat.php'" id="icon"><i class="fa-solid fa-comment-dots" style="font-size: 38px; color: cart.php291f1d;"></i></button>
+                    <button onclick="location.href='cart.php'" id="icon"><i class="fa-solid fa-cart-shopping" style="font-size: 38px; color: cart.php291f1d;"></i></button>
+                    <button onclick="location.href='profile.php'" id="icon"><i class="fa-solid fa-circle-user" style="font-size: 38px; color: cart.php291f1d;"></i></button>                </th>
             </tr>
         </table>
     </header>
@@ -59,11 +60,11 @@
             else {
                 $_SESSION["username"] = $username;
                 $_SESSION["usergroup"] = $usergroup;
-                echo "<a href='../php/customer_home.php'>&ensp;Home&ensp;</a>";
-                echo "<a href='customer_booking.php'>&ensp;Booking&ensp;</a>";
             }
             $row=$result->fetch_array();
         ?>
+        <a href='../php/customer_home.php'>&ensp;Home&ensp;</a>
+        <a href='customer_booking.php'>&ensp;Booking&ensp;</a>
     </div>
 	<body class="shortpage">
 		<div id="content" class="form">
