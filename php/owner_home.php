@@ -1,4 +1,15 @@
-<?php require_once('connect.php'); ?>
+<?php require_once('connect.php'); 
+session_start();
+$username = $_SESSION['username'];
+
+$q ="select room.image,room.ID,room.Name,RoomNumber,MaxAdult,Facility,Price from room join owner on owner.ID=room.O_ID where owner.Username = '$username'";
+$result=$mysqli->query($q);
+if(!$result){
+    echo "Select failed. Error: ".$mysqli->error ;
+    return false;
+}
+$num = $result->num_rows;
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -23,7 +34,14 @@
         <a href="owner_home.php">&ensp;Hotel Info&ensp;</a>
         <a href="owner_booking.php">&ensp;Booking&ensp;</a>
     </div>
-    <body>
+    <?php
+        if ($num < 2) {
+            echo "<body class=shortpage>";
+        }
+        else {
+            echo "<body>";
+        }
+    ?>
         <div id="content" class="form">
 			<!--%%%%% Main block %%%%-->
 			<!--Form -->
@@ -32,15 +50,6 @@
                 <div id="card">
                     <br><br><br><br><br><br><br>
                         <?php
-                        session_start();
-                        $username = $_SESSION['username'];
-                
-                        $q ="select room.image,room.ID,room.Name,RoomNumber,MaxAdult,Facility,Price from room join owner on owner.ID=room.O_ID where owner.Username = $username";
-                        $result=$mysqli->query($q);
-                        if(!$result){
-                            echo "Select failed. Error: ".$mysqli->error ;
-                            return false;
-                        }
 
                         while ($row=$result->fetch_array()) {
                             if ($i%2 == 0) {echo "<tr>";}
