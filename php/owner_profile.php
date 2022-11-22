@@ -1,14 +1,20 @@
 <?php 
 require_once('connect.php'); 
 session_start();
-if (isset($_GET["username"])) {
-    $username = $_GET["username"];
-    $_SESSION["username"] = $username;  
+if (isset($_SESSION["password"])) {
+    $password = $_SESSION["password"];
+    $username = $_SESSION["username"];
+    $q= "select * from owner where Username='$username' and Password='$password'";
+}
+else if (isset($_SESSION["username"])) {
+    $username = $_SESSION["username"];
+    $q= "select * from owner where Username='$username'";
 }
 else {
-    $username = $_SESSION["username"];
+    $q= "select * from owner where Username='phudits'";
 }
-$q= "select * from owner where Username=$username;";
+
+
 $result=$mysqli->query($q);
 if(!$result){
     echo "Select failed. Error: ".$mysqli->error ;
