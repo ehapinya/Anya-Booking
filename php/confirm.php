@@ -50,6 +50,8 @@
                     $cid = $row['ID'];
                     $q = "insert into book values ($cid,$rid,NULL,'$checkin','$checkout')";
                     $result=$mysqli->query($q);
+                    $q = "delete from cart where ID = $rid and username='$username'";
+                    $result=$mysqli->query($q);
                     $q = "select ID from book where C_ID = $cid and R_ID = $rid and Check_inDate = '$checkin' and Check_outDate = '$checkout'";
                     $result=$mysqli->query($q);
                     
@@ -87,14 +89,13 @@
                         echo "<p>Total Price: ",$price,"</p>";
                         echo "</th>";
                         echo "</tr>";
-                        echo "</table><br><br><br><br><br><br>";
+                        echo "</table><br><br>";
                         
                     }
                     ?>        
                 </div>
-				<br></br>
 				<div class="center">
-                    <input type="submit"  value="Home" onclick= "location='customer_home.php'" class="button">			
+                    <input type="submit" value="Home" onclick= "location='customer_home.php'" class="submit">			
 				</div>
 	        </div>
         <div id="footer">
