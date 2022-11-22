@@ -43,7 +43,7 @@
                         //-- add "Email address: Email"-- 
                         echo "Email address:", " admin1@anyabooking.com <br>";
                         echo "Gender:", " Any<br>";                        
-                        
+                    
                         //-- Find the age and output as "Age in years: age"--
                         echo "Age in years:", " " ,date("Y") - 2002,"<br><br>";
                         
