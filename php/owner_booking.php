@@ -2,7 +2,7 @@
 session_start(); 
 require_once('connect.php');
 $username = $_SESSION["username"];
-$q= "select b.ID , r.image , r.Name , b.Check_inDate , b.Check_outDate , r.MaxAdult , r.Price from book b join room r on b.R_ID = r.ID join owner o on r.O_ID = o.ID where o.Username=$username";
+$q= "select b.ID , r.image , r.Name , b.Check_inDate , b.Check_outDate , r.MaxAdult , r.Price from book b join room r on b.R_ID = r.ID join owner o on r.O_ID = o.ID where o.Username='$username'";
 $result=$mysqli->query($q);
 if(!$result){
     echo "Select failed. Error: ".$mysqli->error ;
